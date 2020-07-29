@@ -53,7 +53,7 @@ Actualmente existen numerosos sitios web donde localizar colecciones digitales p
 | Staatsbibliothek zu Berlin | SBB Labs | https://lab.sbb.berlin/?lang=en|
 | State Library New South Wales | DX Lab | https://dxlab.sl.nsw.gov.au|
 
-
+Las instituciones GLAM publican colecciones digitales en diferentes formatos y materiales. Tradicionalmente han publicado diversos tipos de materiales como imágenes, textos y mapas. Recientemente, nuevas formas de publicación han aparecido que utilizan tecnologías basadas en la Web Semántica. Estas técnicas permiten el enriquecimiento con repositorios externos de a partir de la creación de enlaces.
 
 
 
