@@ -19,9 +19,6 @@ En septiembre de 2019, 16 personas pertenecientes a dicha comunidad se reunieron
 
 ## Prerequisitos
 
-conocimientos de programación, en particular python
-jupyter notebooks
-para la ejecución navegador?
 En esta lección asumimos que tienes cierto conocimiento sobre Python. Saber otro lenguaje de programación también te será útil. Si necesitas un lugar donde empezar, recomendamos trabajar con los excelentes tutoriales sobre [Python](https://programminghistorian.org/es/lecciones/?topic=python) en *The Programming Historian en español*. También necesitarás conocimientos sobre Jupyter Notebooks y para ello te recomendamos la lección de [Jupyter Notebooks](https://programminghistorian.org/en/lessons/jupyter-notebooks).
 
 
@@ -37,6 +34,18 @@ Recientemente se publicó el estudio Collections as data que proporciona un nuev
 La combinación de las colecciones digitales proporcionadas por las instituciones GLAM junto a código y narrativa proporciona el marco ideal para la reproducción de los resultados de investigación.
 En este sentido, los jupyter notebooks permiten integrar los tres elementos y se han convertido en un elemento muy popular tanto en la comunidad investigadora como en la educativa. Numerosos proyectos se centran en la publicación de colecciones de notebooks como por ejemplo [GLAM Workbench](https://glam-workbench.github.io/) o [GLAM Jupyter Notebooks](http://data.cervantesvirtual.com/blog/notebooks/). Los Labs favorecen un espacio para poner de manifiesto estas nuevas tendencias para mejorar y mantener la relevancia de las instituciones de patrimonio cultural. 
 
+
+## Buscando colecciones digitales para su reutilización
+Actualmente existen numerosos sitios web donde localizar colecciones digitales para su reutilización. Muchos de ellos corresponden al espacio Lab dentro de la institución GLAM. En otros casos, la colección digital se puede localizar en plataformas como Zenodo que permite la publicación de datasets. La siguiente tabla proporciona un resumen de instituciones GLAM donde localizar colecciones digitales con licencias abiertas para su reutilización.
+
+| Institución   | Colección | URL |
+| ------------- | ------------- |
+| Bibliotèque nationale de France | BnF API et jeux de données | http://api.bnf.fr/ | 
+| British Library | data.bl.uk | https://data.bl.uk/ | 
+| Biblioteca Virtual Miguel de Cervantes & BVMC Labs | http://data.cervantesvirtual.com/blog/labs | 
+| Det Kgl. Bibliotek | KB Labs | https://labs.kb.dk/ | 
+| Europeana | Europeana IIIF APIs | https://pro.europeana.eu/page/iiif | 
+| History Trust of South Australia | Learn section | https://history.sa.gov.au/ | 
 
 
 
