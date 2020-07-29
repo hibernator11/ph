@@ -46,6 +46,14 @@ Actualmente existen numerosos sitios web donde localizar colecciones digitales p
 | Det Kgl. Bibliotek | KB Labs | https://labs.kb.dk/ | 
 | Europeana | Europeana IIIF APIs | https://pro.europeana.eu/page/iiif | 
 | History Trust of South Australia | Learn section | https://history.sa.gov.au/ | 
+| National Library of Netherlands | KB Lab | https://lab.kb.nl/ |
+| National Library of Scotland | Data Foundry | https://data.nls.uk/ |
+| Library of Congress | LC for Robots | https://labs.loc.gov/lc-for-robots/ |
+| Österreichische Nationalbibliothek | ONB Labs |https://labs.onb.ac.at/en/|
+| Staatsbibliothek zu Berlin | SBB Labs | https://lab.sbb.berlin/?lang=en|
+| State Library New South Wales | DX Lab | https://dxlab.sl.nsw.gov.au|
+
+
 
 
 
