@@ -42,7 +42,7 @@ Actualmente existen numerosos sitios web donde localizar colecciones digitales p
 | ------------- | ------------- |
 | Bibliotèque nationale de France | BnF API et jeux de données | http://api.bnf.fr/ | 
 | British Library | data.bl.uk | https://data.bl.uk/ | 
-| Biblioteca Virtual Miguel de Cervantes & BVMC Labs | http://data.cervantesvirtual.com/blog/labs | 
+| Biblioteca Virtual Miguel de Cervantes | BVMC Labs | http://data.cervantesvirtual.com/blog/labs | 
 | Det Kgl. Bibliotek | KB Labs | https://labs.kb.dk/ | 
 | Europeana | Europeana IIIF APIs | https://pro.europeana.eu/page/iiif | 
 | History Trust of South Australia | Learn section | https://history.sa.gov.au/ | 
