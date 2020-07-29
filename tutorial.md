@@ -39,7 +39,7 @@ En este sentido, los jupyter notebooks permiten integrar los tres elementos y se
 Actualmente existen numerosos sitios web donde localizar colecciones digitales para su reutilización. Muchos de ellos corresponden al espacio Lab dentro de la institución GLAM. En otros casos, la colección digital se puede localizar en plataformas como Zenodo que permite la publicación de datasets. La siguiente tabla proporciona un resumen de instituciones GLAM donde localizar colecciones digitales con licencias abiertas para su reutilización.
 
 | Institución   | Colección | URL |
-| ------------- | ------------- |
+| ------------- | ------------- | ------------- |
 | Bibliotèque nationale de France | BnF API et jeux de données | http://api.bnf.fr/ | 
 | British Library | data.bl.uk | https://data.bl.uk/ | 
 | Biblioteca Virtual Miguel de Cervantes | BVMC Labs | http://data.cervantesvirtual.com/blog/labs | 
