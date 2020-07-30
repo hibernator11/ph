@@ -76,10 +76,85 @@ from pymarc import parse_xml_to_array
 from datapackage import Package
 ```
 
+A continuación, vamos a crear un fichero CSV a partir del contenido proporcionado por la colección digital basándonos en el contenido descrito con MARCXML. En primer lugar, creamos el fichero CSV que incluye la cabecera con los campos que vamos a extraer.
 
+```python
+csv_out = csv.writer(open('marc_records.csv', 'w'), delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)
+csv_out.writerow(['title', 'author', 'place_production', 'date', 'extents', 'credits_note', 'subjects', 'summary', 'detail', 'link'])
+```
 
+Seguidamente, 
 
+```python
+records = parse_xml_to_array(open('Moving-Image-Archive/Moving-Image-Archive-dataset-MARC.xml'))
 
+for record in records:
+    
+    title = author = place_production = date = extents = credits_note = subjects = summary = publisher = link =''
+    
+    # titulo
+    if record['245'] is not None:
+      title = record['245']['a']
+      if record['245']['b'] is not None:
+        title = title + " " + record['245']['b']
+    
+    # determinar autor
+    if record['100'] is not None:
+      author = record['100']['a']
+    elif record['110'] is not None:
+      author = record['110']['a']
+    elif record['700'] is not None:
+      author = record['700']['a']
+    elif record['710'] is not None:
+      author = record['710']['a']
+    
+    # lugar de produccion place_production
+    if record['264'] is not None:
+      place_production = record['264']['a']
+    
+    # fecha
+    for f in record.get_fields('264'):
+        dates = f.get_subfields('c')
+        if len(dates):
+            date = dates[0]
+            # cleaning date last .
+            if date.endswith('.'): date = date[:-1]
+    
+    # Descripción física Physical Description - extent
+    for f in record.get_fields('300'):
+        extents = f.get_subfields('a')
+        if len(extents):
+            extent = extents[0]
+            # TODO cleaning
+        details = f.get_subfields('b')
+        if len(details):
+            detail = details[0]
+            
+    # Creation/production credits note
+    if record['508'] is not None:
+      credits_note = record['508']['a']
+    
+    # Resumen
+    if record['520'] is not None:
+      summary = record['520']['a']
+    
+    # Materia subject
+    if record['653'] is not None:
+        subjects = '' 
+        for f in record.get_fields('653'):
+            subjects += f.get_subfields('a')[0] + ' -- '
+        subjects = re.sub(' -- $', '', subjects)
+    
+    # enlace
+    if record['856'] is not None:
+      link = record['856']['u']
+``` 
+
+Y finalmente, una vez que hemos incluido la información, cerramos el fichero CSV.
+
+```python    
+    csv_out.writerow([title,author,place_production,date,extents,credits_note,subjects,summary,detail,link])
+```
 ## Conclusiones
 El futuro de los Labs es esperanzador en lo que respecta a la mejora y adaptación de las instituciones de patrimonio cultural a los nuevos desarrollos tecnológicos, donde la inteligencia artificial va a jugar un papel crucial y las instituciones GLAM pueden servir como repositorio de datos para alimentar los procesos de entrenamiento. Las instituciones GLAM necesitan adaptar sus flujos de trabajo para incluir nuevos aspectos que todavía no han terminado de encajar por diversos motivos, ya sean económicos o de conocimientos técnicos, pero que resultarán fundamentales en los próximos años.
 
