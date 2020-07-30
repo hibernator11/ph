@@ -57,12 +57,12 @@ Las instituciones GLAM publican colecciones digitales en diferentes formatos y m
 
 
 
-## Creación de mapas a partir de Linked Open Data 
+## Ejemplo 1: Creación de mapas a partir de Linked Open Data 
 Para e
 
 
 
-## Extracción y visualización de datos
+## Ejemplo 2: Extracción y visualización de datos
 Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en ficheros que contienen metadatos descritos con [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso.
 
 En primer lugar, importamos las librerías que vamos a necesitar para trabajar con la colección. Básicamente necesitamos un conjunto de librerías para trabajar con MARC, CSV, expressiones regulares, visualización y empaquetado de datos.
