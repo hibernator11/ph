@@ -31,6 +31,9 @@ A la hora de reutilizar una colección digital existen diferentes aspectos que d
 
 Recientemente se publicó el estudio [Collections as data](https://collectionsasdata.github.io/) que proporciona un nuevo enfoque para publicar las colecciones digitales que facilitan el procesamiento por parte de las computadoras. Resulta crucial proporcionar colecciones fácilmente reutilizables para ampliar la visibilidad en los entornos de investigación. EXPLICAR MAS DETALLADAMENTE
 
+
+*“Collections as data” is the idea that collections (such as UNLV’s Digital Collections) can be used as data for researchers to analyze using computers. For example, a historian can use a computer program to quickly read thousands of pages of text and identify patterns such as topics or people that are named. Digital or computational research methods such as text mining, data visualization, mapping, image analysis, audio analysis, and network analysis automate steps in the research process that would take humans many hours to do, or are even impossible for humans to do manually. If you’ve heard of Digital Humanities, Collections as Data falls under that umbrella of scholarly activity.*
+
 La combinación de las colecciones digitales proporcionadas por las instituciones GLAM junto a código y narrativa proporciona el marco ideal para la reproducción de los resultados de investigación.
 En este sentido, los jupyter notebooks permiten integrar los tres elementos y se han convertido en un elemento muy popular tanto en la comunidad investigadora como en la educativa. Numerosos proyectos se centran en la publicación de colecciones de notebooks como por ejemplo [GLAM Workbench](https://glam-workbench.github.io/) o [GLAM Jupyter Notebooks](http://data.cervantesvirtual.com/blog/notebooks/). Los Labs favorecen un espacio para poner de manifiesto estas nuevas tendencias para mejorar y mantener la relevancia de las instituciones de patrimonio cultural. 
 
