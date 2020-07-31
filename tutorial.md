@@ -19,7 +19,7 @@ En septiembre de 2019, 16 personas pertenecientes a dicha comunidad se reunieron
 
 ## Prerequisitos
 
-En esta lección asumimos que tienes cierto conocimiento sobre Python. Saber otro lenguaje de programación también te será útil. Si necesitas un lugar donde empezar, recomendamos trabajar con los excelentes tutoriales sobre [Python](https://programminghistorian.org/es/lecciones/?topic=python) en *The Programming Historian en español*. También necesitarás conocimientos sobre Jupyter Notebooks y para ello te recomendamos la lección de [Jupyter Notebooks](https://programminghistorian.org/en/lessons/jupyter-notebooks). Además, será necesario tener pequeños conocimientos sobre Linked Open Data y SPARQL para los ejemplos de reutilización y te será útil la lección de [datos abiertos enlazados](https://programminghistorian.org/es/lecciones/introduccion-datos-abiertos-enlazados).
+En esta lección asumimos que tienes cierto conocimiento sobre Python. Saber otro lenguaje de programación también te será útil. Si necesitas un lugar donde empezar, recomendamos trabajar con los excelentes tutoriales sobre [Python](https://programminghistorian.org/es/lecciones/?topic=python) en *The Programming Historian en español*. También necesitarás conocimientos sobre Jupyter Notebooks y para ello te recomendamos la lección de [Jupyter Notebooks](https://programminghistorian.org/en/lessons/jupyter-notebooks). Además, será necesario tener pequeños conocimientos sobre MARCXML, Linked Open Data y SPARQL para los ejemplos de reutilización y te será útil la lección de [datos abiertos enlazados](https://programminghistorian.org/es/lecciones/introduccion-datos-abiertos-enlazados).
 
 
 ## Introducción
@@ -63,7 +63,7 @@ Para e
 
 
 ## Ejemplo 2: Extracción y visualización de datos
-Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en ficheros que contienen metadatos descritos con [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso.
+Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en ficheros que contienen metadatos descritos con el formato [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso.
 
 En primer lugar, importamos las librerías que vamos a necesitar para trabajar con la colección. Básicamente necesitamos un conjunto de librerías para trabajar con MARC, CSV, expressiones regulares, visualización y empaquetado de datos.
 
@@ -83,7 +83,7 @@ csv_out = csv.writer(open('marc_records.csv', 'w'), delimiter = ',', quotechar =
 csv_out.writerow(['title', 'author', 'place_production', 'date', 'extents', 'credits_note', 'subjects', 'summary', 'detail', 'link'])
 ```
 
-Seguidamente, 
+Seguidamente, comenzamos a extraer la información del fichero MARCXML. El formato MARCXML consiste en la codificación de un registro MARC en XML (eXtensible Markup Language) donde los metadatos se incluyen como campos (identificados por números) y subcampos (identificados por caracteres). Por ejemplo, el campo 245 $a corresponde al título y el campo 100 al autor principal de una obra. Como se observa en el código, mediante la librería pymarc recorremos los registros y localizamos los campos que deseamos recuperar mediante sus identificadores.
 
 ```python
 records = parse_xml_to_array(open('Moving-Image-Archive/Moving-Image-Archive-dataset-MARC.xml'))
@@ -120,7 +120,7 @@ for record in records:
             # cleaning date last .
             if date.endswith('.'): date = date[:-1]
     
-    # Descripción física Physical Description - extent
+    # descripción física
     for f in record.get_fields('300'):
         extents = f.get_subfields('a')
         if len(extents):
@@ -130,31 +130,33 @@ for record in records:
         if len(details):
             detail = details[0]
             
-    # Creation/production credits note
+    # nota de creacion
     if record['508'] is not None:
       credits_note = record['508']['a']
     
-    # Resumen
+    # resumen
     if record['520'] is not None:
       summary = record['520']['a']
     
-    # Materia subject
+    # materia
     if record['653'] is not None:
         subjects = '' 
         for f in record.get_fields('653'):
             subjects += f.get_subfields('a')[0] + ' -- '
         subjects = re.sub(' -- $', '', subjects)
     
-    # enlace
+    # enlace - acceso 
     if record['856'] is not None:
       link = record['856']['u']
 ``` 
 
-Y finalmente, una vez que hemos incluido la información, cerramos el fichero CSV.
+Y finalmente, una vez que hemos extraido la información, cerramos el fichero CSV.
 
 ```python    
     csv_out.writerow([title,author,place_production,date,extents,credits_note,subjects,summary,detail,link])
 ```
+
+
 ## Conclusiones
 El futuro de los Labs es esperanzador en lo que respecta a la mejora y adaptación de las instituciones de patrimonio cultural a los nuevos desarrollos tecnológicos, donde la inteligencia artificial va a jugar un papel crucial y las instituciones GLAM pueden servir como repositorio de datos para alimentar los procesos de entrenamiento. Las instituciones GLAM necesitan adaptar sus flujos de trabajo para incluir nuevos aspectos que todavía no han terminado de encajar por diversos motivos, ya sean económicos o de conocimientos técnicos, pero que resultarán fundamentales en los próximos años.
 
