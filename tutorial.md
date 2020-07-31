@@ -83,7 +83,7 @@ csv_out = csv.writer(open('marc_records.csv', 'w'), delimiter = ',', quotechar =
 csv_out.writerow(['title', 'author', 'place_production', 'date', 'extents', 'credits_note', 'subjects', 'summary', 'detail', 'link'])
 ```
 
-Seguidamente, comenzamos a extraer la información del fichero MARCXML. El formato MARCXML consiste en la codificación de un registro MARC en XML (eXtensible Markup Language) donde los metadatos se incluyen como campos (identificados por números) y subcampos (identificados por caracteres). Por ejemplo, el campo 245 $a corresponde al título y el campo 100 al autor principal de una obra. Como se observa en el código, mediante la librería pymarc recorremos los registros y localizamos los campos que deseamos recuperar mediante sus identificadores.
+Seguidamente, comenzamos a extraer la información del fichero MARCXML. El formato MARCXML consiste en la codificación de un registro MARC en XML (eXtensible Markup Language) donde los metadatos se incluyen como campos (identificados por números) y subcampos (identificados por caracteres). Por ejemplo, el campo 245 $a corresponde al título y el campo 100 al autor principal de una obra. Como se observa en el código, mediante la librería pymarc recorremos los registros y localizamos los campos que deseamos recuperar mediante sus identificadores para generar y almacenar el resultado en el fichero CSV.
 
 ```python
 records = parse_xml_to_array(open('Moving-Image-Archive/Moving-Image-Archive-dataset-MARC.xml'))
@@ -148,13 +148,25 @@ for record in records:
     # enlace - acceso 
     if record['856'] is not None:
       link = record['856']['u']
+      
+    # guardamos la informacion en el fichero CSV
+    csv_out.writerow([title,author,place_production,date,extents,credits_note,subjects,summary,detail,link])
 ``` 
 
-Y finalmente, una vez que hemos extraido la información, cerramos el fichero CSV.
+Una vez que ya hemos generado el fichero CSV, podemos cargarlo mediante la librería pandas que permite cargar y manipular datos tabulados por medio de su estructura básica DataFrame.
 
 ```python    
-    csv_out.writerow([title,author,place_production,date,extents,credits_note,subjects,summary,detail,link])
+df = pd.read_csv('marc_records.csv')
 ```
+
+Para ver el contenido del DataFrame debemos mostrar la variable df. También podemos comprobar las columnas existentes así como el número de registros.
+
+```python    
+df  
+df.columns
+len(df)
+```
+
 
 
 ## Conclusiones
