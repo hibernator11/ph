@@ -62,7 +62,7 @@ Para e
 
 
 ## Ejemplo 2: Extracción y visualización de datos
-Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en un único fichero que contiene metadatos descritos con el formato [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso.
+Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en un único fichero que contiene metadatos descritos con el formato [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso. Este ejemplo está basado en el [Jupyter Notebook](https://nbviewer.jupyter.org/github/hibernator11/notebook-texts-metadata/blob/master/dataset-extraction-images.ipynb) disponible en la colección del Labs de la Biblioteca Virtual Miguel de Cervantes.
 
 En primer lugar, importamos las librerías que vamos a necesitar para trabajar con la colección. Básicamente necesitamos un conjunto de librerías para trabajar con MARC, CSV, expressiones regulares, visualización y empaquetado de datos.
 
