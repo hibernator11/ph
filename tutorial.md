@@ -180,7 +180,7 @@ for topic in sorted(topics, key=str.lower):
     print(topic)  
 ```
 
-![Listado de mateiras](subjects.png)
+![Listado de materias](subjects.png)
 
 
 ## Conclusiones
