@@ -165,7 +165,7 @@ df
 
 ![Overview of the metatada loaded with pandas](df-overview.png)
 
-También podemos mostrar las columnas que tiene nuestro fichero CSV llamando al método df.columns.
+También podemos mostrar las columnas que tiene nuestro fichero CSV llamando al método **df.columns**. Para obtener el número de registros en nuestro DataFrame ejecutamos el comando **len(df)**
 
 ![Overview of the metatada loaded with pandas](df-columns.png)
 
