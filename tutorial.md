@@ -57,7 +57,41 @@ Las instituciones GLAM publican colecciones digitales en diferentes formatos y m
 
 
 ## Ejemplo 1: Creación de mapas a partir de Linked Open Data 
-Para e
+Para el primer ejemplo nos vamos a basar en un repositorio creado usando tecnologías avanzadas como Linked Open Data. La plataforma [BNB Linked Data](https://bnb.data.bl.uk/) provee acceso a la British National Bibliography (BNB) como Lined Open Data proporcionando acceso a través de SPARQL. Este ejemplo se basa en el notebook de la colección de la [Biblioteca Virtual Miguel de Cervantes](https://nbviewer.jupyter.org/github/hibernator11/notebook-lod-libraries/blob/master/bnb-lod-extraction-map.ipynb).
+
+Este ejemplo utiliza los metadatos del repositorio que indican localicaciones, como por ejemplo las propiedades blt:publication y blt:projectedPublication que indican lugares de publicación. Gracias a que los registros están enlazados a [GeoNames](https://www.geonames.org/), vamos a poder acceder a Wikidata para recuperar las coordenadas geográficas de las localizaciones, mostrando los beneficios de Linked Open Data. El vocabulario utilizado por BNB Linked Data es [Bibliogrpahic Ontology](http://bibliontology.com/) (BIBO) que es un vocabulario sencillo que permite describir los metadatos de un repositorio bibliográfico.
+
+En primer lugar, importamos las librerías que vamos a necesitar para trabajar con la colección. Básicamente necesitamos un conjunto de librerías para trabajar con mapas como [folium](https://pypi.org/project/folium/0.1.4/), CSV, visualización y empaquetado de datos.
+
+```python
+import folium
+import requests
+import pandas as pd
+import json
+import csv
+import matplotlib.pyplot as plt
+from pandas.io.json import json_normalize
+```
+
+A continuación, vamos a recuperar los lugares de publicación de un conjunto de obras que pertenecen a un autor. En primer lugar, y siguiendo la [documentación de la plataforma](https://bnb.data.bl.uk/getting-started), localizamos un ejemplo que nos puede ser útil que permite recuperar obras publicadas en York.
+
+```sparql
+SELECT ?book ?isbn ?title WHERE {
+  ?place rdfs:label "York" .
+  ?publication event:place ?place.
+ ?book 
+        blt:publication ?publication;
+        bibo:isbn10 ?isbn;
+        dct:title ?title.
+}
+LIMIT 50```
+
+
+
+
+A continuación, vamos a crear un fichero CSV a partir del contenido proporcionado por la colección digital basándonos en el contenido descrito con MARCXML. En primer lugar, creamos el fichero CSV que incluye la cabecera con los campos que vamos a extraer.
+
+
 
 
 
