@@ -238,8 +238,7 @@ for topic in sorted(topics, key=str.lower):
 
 
 ## Conclusiones
-El futuro de los Labs es esperanzador en lo que respecta a la mejora y adaptación de las instituciones de patrimonio cultural a los nuevos desarrollos tecnológicos, donde la inteligencia artificial va a jugar un papel crucial y las instituciones GLAM pueden servir como repositorio de datos para alimentar los procesos de entrenamiento. Las instituciones GLAM necesitan adaptar sus flujos de trabajo para incluir nuevos aspectos que todavía no han terminado de encajar por diversos motivos, ya sean económicos o de conocimientos técnicos, pero que resultarán fundamentales en los próximos años.
+Las instituciones GLAM se están adaptando al nuevo entorno proporcionando colleciones aptas para el procesamiento por computador. Los labs en el seno de las instituciones GLAM desempeñan un papel fundamental en este sentido para promover las colecciones digitales y su reutilización de forma innovadora. Sin embargo, todavía es posible mejorar en lo que respecta a las licencias para proporcionar colecciones libres de derechos como también a la publicación de ejemplos y prototipos de uso. En ese sentido, los Jupyter Notebooks pueden facilitar la creación de prototipos basados en métodos de investigación de Humanidades Digitales facilitando su reproducibilidad en entornos de nube. 
 
-En el contexto iberoamericano, los Labs facilitarán sin duda el desarrollo y evolución de las instituciones de patrimonio cultural proporcionando sus colecciones para diferentes fines. Además, permitirá a las instituciones mantener su estatus original y permanecer relevantes, adoptando en sus flujos de trabajo tareas que faciliten la investigación y la reutilización.
 
 
