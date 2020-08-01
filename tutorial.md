@@ -113,6 +113,31 @@ SELECT DISTINCT ?resource ?title ?date ?place WHERE {
 
 Para poder ejecutar esta sentencia SPARQL en Python, necesitamos el siguiente código:
 
+´´´python
+
+PREFIX blt: <http://www.bl.uk/schemas/bibliographic/blterms#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX schema: <http://schema.org/>
+PREFIX c4dm: <http://purl.org/NET/c4dm/event.owl#>
+
+SELECT DISTINCT ?resource ?title ?date ?place WHERE {
+  ?resource ?p <http://bnb.data.bl.uk/id/person/ShakespeareWilliam1564-1616> ;
+     dct:title ?title ;
+     schema:datePublished ?date .
+  ?resource blt:publication ?publication .
+     ?publication c4dm:place ?place .
+     FILTER regex(?place, "geonames", "i")        
+} LIMIT 500
+
+query = query.format(bnbIdAuthor)
+
+# use json as a result
+headers = {'Accept': 'application/sparql-results+json'}
+r = requests.get(url, params = {'format': 'application/sparql-results+json', 'query': query}, headers=headers)
+print('Elements retrieved!')
+print(r.text)
+´´´
+
 
 
 ## Ejemplo 2: Extracción y visualización de datos
@@ -238,7 +263,7 @@ for topic in sorted(topics, key=str.lower):
 
 
 ## Conclusiones
-Las instituciones GLAM se están adaptando al nuevo entorno proporcionando colleciones aptas para el procesamiento por computador. Los labs en el seno de las instituciones GLAM desempeñan un papel fundamental en este sentido para promover las colecciones digitales y su reutilización de forma innovadora. Sin embargo, todavía es posible mejorar en lo que respecta a las licencias para proporcionar colecciones libres de derechos como también a la publicación de ejemplos y prototipos de uso. En ese sentido, los Jupyter Notebooks pueden facilitar la creación de prototipos basados en métodos de investigación de Humanidades Digitales facilitando su reproducibilidad en entornos de nube. 
+Las instituciones GLAM se están adaptando al nuevo entorno proporcionando colleciones aptas para el procesamiento por computador. Los labs en el seno de las instituciones GLAM desempeñan un papel fundamental en este sentido para promover las colecciones digitales y su reutilización de forma innovadora. Sin embargo, todavía es posible mejorar en lo que respecta a las licencias para proporcionar colecciones digitales libres de derechos como también a la publicación de ejemplos y prototipos de uso. En ese sentido, los Jupyter Notebooks pueden facilitar la creación de prototipos basados en métodos de investigación de Humanidades Digitales facilitando su reproducibilidad en entornos de nube. 
 
 
 
