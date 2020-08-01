@@ -75,7 +75,7 @@ from pandas.io.json import json_normalize
 
 A continuación, vamos a recuperar los lugares de publicación de un conjunto de obras que pertenecen a un autor. En primer lugar, y siguiendo la [documentación de la plataforma](https://bnb.data.bl.uk/getting-started), localizamos un ejemplo que nos puede ser útil que permite recuperar obras publicadas en York.
 
-```sparql
+```sql
 SELECT ?book ?isbn ?title WHERE {
   ?place rdfs:label "York" .
   ?publication event:place ?place.
@@ -84,7 +84,8 @@ SELECT ?book ?isbn ?title WHERE {
         bibo:isbn10 ?isbn;
         dct:title ?title.
 }
-LIMIT 50```
+LIMIT 50
+```
 
 
 
