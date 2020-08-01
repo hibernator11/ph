@@ -73,7 +73,7 @@ import matplotlib.pyplot as plt
 from pandas.io.json import json_normalize
 ```
 
-A continuación, vamos a recuperar los lugares de publicación de un conjunto de obras que pertenecen a un autor. En primer lugar, y siguiendo la [documentación de la plataforma](https://bnb.data.bl.uk/getting-started), localizamos un ejemplo que nos puede ser útil que permite recuperar obras publicadas en York.
+A continuación, vamos a recuperar los lugares de publicación de un conjunto de obras que pertenecen a un autor. En primer lugar, y siguiendo la [documentación de la plataforma](https://bnb.data.bl.uk/getting-started), localizamos un ejemplo que nos puede ser útil que permite recuperar obras publicadas en York. Las sentencias las podemos ejecutar en el punto de acceso [SPARQL](https://bnb.data.bl.uk/flint-sparql).
 
 ```sql
 SELECT ?book ?isbn ?title WHERE {
@@ -87,12 +87,31 @@ SELECT ?book ?isbn ?title WHERE {
 LIMIT 50
 ```
 
+![Punto de acceso SPARQL para la plataforma BNB Linked Data](flint-sparql.png)
 
 
 
-A continuación, vamos a crear un fichero CSV a partir del contenido proporcionado por la colección digital basándonos en el contenido descrito con MARCXML. En primer lugar, creamos el fichero CSV que incluye la cabecera con los campos que vamos a extraer.
+
+El resultado de la sentencia SPARQL anterior no proporciona coordenadas geográficas aunque algunos textos que representan localizaciones se encuentran enlazados a GeoNames por medio de una relación c4dm:place. En el siguiente ejemplo recuperamos las obras de William Shakespeare que incluyen un lugar de publicación y que además se encuentran enlazado a GeoNames. En el modelo de la plataforma BNB Linked Data, un recurso de tipo publicación contiene una propiedad c4dm:place que en algunos casos enlaza a GeoNames.
 
 
+```sql
+PREFIX blt: <http://www.bl.uk/schemas/bibliographic/blterms#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX schema: <http://schema.org/>
+PREFIX c4dm: <http://purl.org/NET/c4dm/event.owl#>
+
+SELECT DISTINCT ?resource ?title ?date ?place WHERE {
+  ?resource ?p <http://bnb.data.bl.uk/id/person/ShakespeareWilliam1564-1616> ;
+     dct:title ?title ;
+     schema:datePublished ?date .
+  ?resource blt:publication ?publication .
+     ?publication c4dm:place ?place .
+     FILTER regex(?place, "geonames", "i")        
+} LIMIT 500
+```
+
+Para poder ejecutar esta sentencia SPARQL en Python, necesitamos el siguiente código:
 
 
 
