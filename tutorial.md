@@ -177,6 +177,86 @@ df
 
 ![Visualización del objeto DataFrame con los resultados](df-bnb.png)
 
+A continuación, podemos analizar cuántos enlaces diferentes tenemos a GeoNames en el listado de resultados. Pandas permite acceder a las columnas del objeto DataFrame mediante el operador groupby. En este ejemplo agrupamos por la columna lugar de publicación (place) y en la segunda posición marcamos la columna que queremos utilizar para realizar la agregación, en este caso, la obra (resource). 
+
+```python
+places_by_number = df.groupby("place")["resource"].count()
+```
+
+![Enlaces a GeoNames en el listado de resultados](geonames-links.png)
+
+La plataforma BNB Linked Data proporciona los enlaces a GeoNames pero no contiene las coordenadas geográficas. Sin embargo, esta información puede ser recuperada de otros repositorio, como por ejemplo Wikidata. Las entidades en Wikidata disponen de un conjunto de propiedades que las describen y también incluyen un segundo apartado para identificadores externos. La siguiente imagen corresponde a la entidad [Londres en Wikidata](https://www.wikidata.org/wiki/Q84?uselang=es) y podemos observar el identificador de GeoNames.
+
+Hasta ahora disponemos de las URIs de cada elemento de GeoNames. Para poder enlazar a Wikidata necesitamos únicamente el identificador. El siguiente código extrae los identificadores haciendo tratamiento de cadenas.
+
+![Enlaces a GeoNames en el listado de resultados](entidad-londres.png)
+
+```python
+places = pd.unique(df['place']).tolist()
+strplaces = ''
+for a in sorted(places):
+    print(a)
+    strplaces = strplaces + ' \"' + a.replace("http://sws.geonames.org/", "").replace("/", "") + '\"'
+print(strplaces)
+```
+
+![Extracción de identificadores de GeoNames](ids-geonames.png)
+
+
+Una vez tenemos preparado nuestro listado de identificadores a GeoNames, vamos a recuperar las coordenadas geográficas de Wikidata. Para ello es necesario crear una consulta SPARQL. Vamos a utilizar la instrucción VALUES que permite especificar los valores para una determinada variable, en nuestro caso, los identificadores de GeoNames. La propiedad P1566 corresponde al identificador de GeoNames en Wikidata y la propiedad P625 corresponde a las propiedades geográficas.
+
+```python
+url = 'https://query.wikidata.org/sparql'
+query = """
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+SELECT ?idgeonames ?lat ?lon ?x ?xLabel 
+WHERE {{ 
+  values ?idgeonames {{ {0} }} 
+  ?x wdt:P1566 ?idgeonames ; 
+   p:P625 [
+     psv:P625 [
+       wikibase:geoLatitude ?lat ;
+       wikibase:geoLongitude ?lon ;
+       wikibase:geoGlobe ?globe ;
+     ];
+     ps:P625 ?coord
+   ]
+   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+}}
+"""
+
+query = query.format(strplaces)
+print(query)
+
+# use json as a result
+r = requests.get(url, params = {'format': 'json', 'query': query})
+geopoints = r.json()
+```
+
+Finalmente, creamos un objeto folium para implementar un mapa y añadir las coordenadas recuperadas desde Wikidata en el paso anterior.
+
+```python
+map = folium.Map(location=[0,0], zoom_start=1.5)
+
+for geo in geopoints['results']['bindings']:
+    idwikidata = geo['x']['value']
+    lat = geo['lat']['value']
+    lon = geo['lon']['value']
+    idgeonames = geo['idgeonames']['value']
+    label = geo['xLabel']['value']
+    print(lat, lon)
+    
+    # adding a text to the popup
+    count = places_by_number[['http://sws.geonames.org/' + idgeonames + '/']][0]
+    popup = str(count) + " records published in <a hreh='" + str(idwikidata) + "'>" + label + "</a>"
+    
+    folium.Marker([lat,lon], popup= popup).add_to(map)
+```
+
+Y como resultado se obtiene un mapa con los lugares de publicación de las obras del autor seleccionado, en nuestro caso, William Shakespeare.
+
+![Lugares de publicación de las obras de William Shakespeare](map.png)
+
 
 ## Ejemplo 2: Extracción y visualización de datos
 Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en un único fichero que contiene metadatos descritos con el formato [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso. Este ejemplo está basado en el [Jupyter Notebook](https://nbviewer.jupyter.org/github/hibernator11/notebook-texts-metadata/blob/master/dataset-extraction-images.ipynb) disponible en la colección del Labs de la Biblioteca Virtual Miguel de Cervantes.
