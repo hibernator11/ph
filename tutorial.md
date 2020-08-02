@@ -233,7 +233,7 @@ r = requests.get(url, params = {'format': 'json', 'query': query})
 geopoints = r.json()
 ```
 
-Finalmente, creamos un objeto folium para implementar un mapa y añadir las coordenadas recuperadas desde Wikidata en el paso anterior.
+Finalmente, creamos un objeto folium para implementar un mapa y añadir las coordenadas recuperadas desde Wikidata en el paso anterior. Recuperamos cada coordenada geográfica (variables lat y lon) y montamos el texto (popup) que se mostrará al hacer click sobre cada localización en el mapa. Finalmente, añadimos al mapa cada elemento (marker).
 
 ```python
 map = folium.Map(location=[0,0], zoom_start=1.5)
