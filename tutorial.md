@@ -111,10 +111,13 @@ SELECT DISTINCT ?resource ?title ?date ?place WHERE {
 } LIMIT 500
 ```
 
-Para poder ejecutar esta sentencia SPARQL en Python, necesitamos el siguiente código:
+Para poder ejecutar esta sentencia SPARQL en Python, necesitamos especificar el punto de acceso SPARQL y la sentencia SPARQL a ejecutar:
 
 ´´´python
 
+url = 'https://bnb.data.bl.uk/sparql'
+
+query = """
 PREFIX blt: <http://www.bl.uk/schemas/bibliographic/blterms#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX schema: <http://schema.org/>
@@ -128,16 +131,17 @@ SELECT DISTINCT ?resource ?title ?date ?place WHERE {
      ?publication c4dm:place ?place .
      FILTER regex(?place, "geonames", "i")        
 } LIMIT 500
+"""
 
-query = query.format(bnbIdAuthor)
+A continuación, recuperamos el resultado configurando la cabecera de la petición para que devuelva como resultado un objeto JSON.
 
-# use json as a result
+´´´python
 headers = {'Accept': 'application/sparql-results+json'}
 r = requests.get(url, params = {'format': 'application/sparql-results+json', 'query': query}, headers=headers)
-print('Elements retrieved!')
 print(r.text)
 ´´´
 
+![Resultados de la petición a la plataforma BNB Linked Data](json-result.png)
 
 
 ## Ejemplo 2: Extracción y visualización de datos
