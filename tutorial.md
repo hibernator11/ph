@@ -144,6 +144,39 @@ print(r.text)
 
 ![Resultados de la petición a la plataforma BNB Linked Data](json-result.png)
 
+Una vez tenemos el resultado, vamos a guardarlo como un fichero CSV que resulta mucho más sencillo de manejar. En primer lugar cargamos en un objeto JSON el resultado obtenido.
+
+```python
+bnbdata = json.loads(r.text)
+```
+
+Y a continuación, creamos el fichero CSV y recuperamos el contenido del objeto JSON. Accedemos a cada ítem del listado de resultados en el objeto JSON usando la variable bnbdata y accediendo a los atributos ['results']['bindings']. Cada propiedad tiene un atributo value que contiene el valor que necesitamos recuperar. 
+
+```python
+with open('bnb_records.csv', 'w', newline='') as file:
+    csv_out = csv.writer(file, delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)    
+    csv_out.writerow(['resource', 'place', 'title', 'date'])
+
+    for i in bnbdata['results']['bindings']:
+        resource = place = title = date =''
+
+        resource = i['resource']['value']
+        place = i['place']['value']
+        title = i['title']['value']
+        date = i['date']['value']
+
+        csv_out.writerow([resource,place,title,date])
+```
+
+Una vez que tenemos creado el fichero CSV, podemos cargarlo en un objeto DataFrame de pandas que nos facilita el análisis y tratamiento.
+
+```python
+df = pd.read_csv('bnb_records.csv')
+df
+```
+
+![Visualización del objeto DataFrame con los resultados](df-bnb.png)
+
 
 ## Ejemplo 2: Extracción y visualización de datos
 Para el segundo ejemplo vamos a utilizar la colección [Moving Image Catalogue](https://data.nls.uk/data/metadata-collections/moving-image-archive/) del Data Foundry de la [Biblioteca Nacional de Escocia](https://data.nls.uk/). Esta colección consiste en un único fichero que contiene metadatos descritos con el formato [MARCXML](https://www.loc.gov/standards/marcxml//). Si nos fijamos en la web de descarga, es posible identificar que la colección está publicada bajo dominio público y por tanto no tiene restricciones de uso. Este ejemplo está basado en el [Jupyter Notebook](https://nbviewer.jupyter.org/github/hibernator11/notebook-texts-metadata/blob/master/dataset-extraction-images.ipynb) disponible en la colección del Labs de la Biblioteca Virtual Miguel de Cervantes.
