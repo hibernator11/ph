@@ -113,7 +113,7 @@ SELECT DISTINCT ?resource ?title ?date ?place WHERE {
 
 Para poder ejecutar esta sentencia SPARQL en Python, necesitamos especificar el punto de acceso SPARQL y la sentencia SPARQL a ejecutar:
 
-´´´python
+```python
 
 url = 'https://bnb.data.bl.uk/sparql'
 
@@ -132,14 +132,15 @@ SELECT DISTINCT ?resource ?title ?date ?place WHERE {
      FILTER regex(?place, "geonames", "i")        
 } LIMIT 500
 """
+```
 
 A continuación, recuperamos el resultado configurando la cabecera de la petición para que devuelva como resultado un objeto JSON.
 
-´´´python
+```python
 headers = {'Accept': 'application/sparql-results+json'}
 r = requests.get(url, params = {'format': 'application/sparql-results+json', 'query': query}, headers=headers)
 print(r.text)
-´´´
+```
 
 ![Resultados de la petición a la plataforma BNB Linked Data](json-result.png)
 
