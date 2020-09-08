@@ -87,7 +87,7 @@ SELECT ?book ?isbn ?title WHERE {
 LIMIT 50
 ```
 
-![Punto de acceso SPARQL para la plataforma BNB Linked Data](flint-sparql.png)
+![Punto de acceso SPARQL para la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/flint-sparql.png)
 
 
 
@@ -142,7 +142,7 @@ r = requests.get(url, params = {'format': 'application/sparql-results+json', 'qu
 print(r.text)
 ```
 
-![Resultados de la petición a la plataforma BNB Linked Data](json-result.png)
+![Resultados de la petición a la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/json-result.png)
 
 Una vez tenemos el resultado, vamos a guardarlo como un fichero CSV que resulta mucho más sencillo de manejar. En primer lugar cargamos en un objeto JSON el resultado obtenido.
 
@@ -175,7 +175,7 @@ df = pd.read_csv('bnb_records.csv')
 df
 ```
 
-![Visualización del objeto DataFrame con los resultados](df-bnb.png)
+![Visualización del objeto DataFrame con los resultados](reutilizando-colecciones-digitales-glam-labs/df-bnb.png)
 
 A continuación, podemos analizar cuántos enlaces diferentes tenemos a GeoNames en el listado de resultados. Pandas permite acceder a las columnas del objeto DataFrame mediante el operador groupby. En este ejemplo agrupamos por la columna lugar de publicación (place) y en la segunda posición marcamos la columna que queremos utilizar para realizar la agregación, en este caso, la obra (resource). 
 
@@ -183,13 +183,13 @@ A continuación, podemos analizar cuántos enlaces diferentes tenemos a GeoNames
 places_by_number = df.groupby("place")["resource"].count()
 ```
 
-![Enlaces a GeoNames en el listado de resultados](geonames-links.png)
+![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/geonames-links.png)
 
 La plataforma BNB Linked Data proporciona los enlaces a GeoNames pero no contiene las coordenadas geográficas. Sin embargo, esta información puede ser recuperada de otros repositorio, como por ejemplo Wikidata. Las entidades en Wikidata disponen de un conjunto de propiedades que las describen y también incluyen un segundo apartado para identificadores externos. La siguiente imagen corresponde a la entidad [Londres en Wikidata](https://www.wikidata.org/wiki/Q84?uselang=es) y podemos observar el identificador de GeoNames.
 
 Hasta ahora disponemos de las URIs de cada elemento de GeoNames. Para poder enlazar a Wikidata necesitamos únicamente el identificador. El siguiente código extrae los identificadores haciendo tratamiento de cadenas.
 
-![Enlaces a GeoNames en el listado de resultados](entidad-londres.png)
+![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/entidad-londres.png)
 
 ```python
 places = pd.unique(df['place']).tolist()
@@ -200,7 +200,7 @@ for a in sorted(places):
 print(strplaces)
 ```
 
-![Extracción de identificadores de GeoNames](ids-geonames.png)
+![Extracción de identificadores de GeoNames](reutilizando-colecciones-digitales-glam-labs/ids-geonames.png)
 
 
 Una vez tenemos preparado nuestro listado de identificadores a GeoNames, vamos a recuperar las coordenadas geográficas de Wikidata. Para ello es necesario crear una consulta SPARQL. Vamos a utilizar la instrucción VALUES que permite especificar los valores para una determinada variable, en nuestro caso, los identificadores de GeoNames. La propiedad P1566 corresponde al identificador de GeoNames en Wikidata y la propiedad P625 corresponde a las propiedades geográficas.
@@ -255,7 +255,7 @@ for geo in geopoints['results']['bindings']:
 
 Y como resultado se obtiene un mapa con los lugares de publicación de las obras del autor seleccionado, en nuestro caso, William Shakespeare.
 
-![Lugares de publicación de las obras de William Shakespeare](map.png)
+![Lugares de publicación de las obras de William Shakespeare](reutilizando-colecciones-digitales-glam-labs/map.png)
 
 
 ## Ejemplo 2: Extracción y visualización de datos
@@ -360,11 +360,11 @@ Para ver el contenido del DataFrame debemos mostrar la variable df. También pod
 df  
 ```
 
-![Overview of the metatada loaded with pandas](df-overview.png)
+![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-overview.png)
 
 También podemos mostrar las columnas que tiene nuestro fichero CSV llamando al método **df.columns**. Para obtener el número de registros en nuestro DataFrame ejecutamos el comando **len(df)**.
 
-![Overview of the metatada loaded with pandas](df-columns.png)
+![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-columns.png)
 
 Pandas permite la manipulación y visualización del Dataframe de diferentes formas. Por ejemplo, podemos identificar la lista de materias (corresponde a la columna subjects) y ordenarla alfabéticamente.
 
@@ -377,7 +377,7 @@ for topic in sorted(topics, key=str.lower):
     print(topic)  
 ```
 
-![Listado de materias](subjects.png)
+![Listado de materias](reutilizando-colecciones-digitales-glam-labs/subjects.png)
 
 
 ## Conclusiones
