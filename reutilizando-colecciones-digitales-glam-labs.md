@@ -1,3 +1,38 @@
+ title: ["Reutilizando colecciones digitales: GLAM Labs"]
+ collection: lessons
+ layout: lesson
+ slug: [DEJAR EN BLANCO]
+ date: [DEJAR EN BLANCO]
+ translation_date: [DEJAR EN BLANCO]
+ authors:
+ - [Gustavo Candela]
+ - [María Dolores Sáez]
+ - [María Pilar Escobar]
+ - [Manuel Marco Such]
+ reviewers:
+ - [DEJAR EN BLANCO]
+ editors:
+ - [DEJAR EN BLANCO]
+ translator:
+ - [NOMBRE APELLIDO 1]
+ translation-editor:
+ - [DEJAR EN BLANCO]
+ translation-reviewer:
+ - [DEJAR EN BLANCO]
+ original: [DEJAR EN BLANCO]
+ review-ticket: [DEJAR EN BLANCO]
+ difficulty: [DEJAR EN BLANCO]
+ activity: [DEJAR EN BLANCO]
+ topics: [DEJAR EN BLANCO]
+ abstract: [DEJAR EN BLANCO]
+ ---
+ 
+ ## Contenidos
+{:.no_toc}
+
+* TOC
+{:toc}
+
 # Reutilizando colecciones digitales: GLAM Labs
 
 ## Objetivos de la lección
