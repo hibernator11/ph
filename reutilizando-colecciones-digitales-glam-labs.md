@@ -52,7 +52,8 @@ El avance de las tecnologías ha favorecido un nuevo contexto en el que las cole
 Las instituciones de patrimonio cultural han comenzado a experimentar con las colecciones digitales que tradicionalmente han publicado en formato digital. Este nuevo contexto ha favorecido la creación de nuevos espacios en el seno de las instituciones para experimentar con las colecciones digitales de forma creativa e innovadora conocidos como Labs. Uno de los primeros Labs, y líder en este ámbito sentando las bases para el resto, corresponde al de la [Biblioteca Británica](http://labs.bl.uk) que ha sido financiado por la [Mellon Foundation](https://mellon.org/). Como resultado a dos reuniones de carácter internacional en la sede de la Biblioteca Británica y en la Biblioteca Real de Dinamarca en Copenhague, se creó la [Comunidad Internacional GLAM Labs](https://glamlabs.io) compuesta por numerosas instituciones como se muestra en la siguiente figura. 
 
 
-![Mapa que representa las instituciones de la comunidad GLAM Labs](reutilizando-colecciones-digitales-glam-labs/map-labs.png)
+<!--![Mapa que representa las instituciones de la comunidad GLAM Labs](reutilizando-colecciones-digitales-glam-labs/map-labs.png) -->
+{% include figure.html filename="map-labs.png" caption="Mapa que representa las instituciones de la comunidad GLAM Labs" %}
 
 
 En septiembre de 2019, 16 personas pertenecientes a dicha comunidad se reunieron en Doha para escribir a partir de la metodología Book Sprint el libro [Open a GLAM Lab](https://glamlabs.io/books/open-a-glam-lab/) que actualmente ha sido traducido a diversos idiomas, entre ellos castellano y árabe.
@@ -118,8 +119,8 @@ SELECT ?book ?isbn ?title WHERE {
 LIMIT 50
 ```
 
-![Punto de acceso SPARQL para la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/flint-sparql.png)
-
+<!--![Punto de acceso SPARQL para la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/flint-sparql.png)-->
+{% include figure.html filename="flint-sparql.png" caption="Punto de acceso SPARQL para la plataforma BNB Linked Data" %}
 
 
 
@@ -173,7 +174,8 @@ r = requests.get(url, params = {'format': 'application/sparql-results+json', 'qu
 print(r.text)
 ```
 
-![Resultados de la petición a la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/json-result.png)
+<!--![Resultados de la petición a la plataforma BNB Linked Data](reutilizando-colecciones-digitales-glam-labs/json-result.png)-->
+{% include figure.html filename="json-result.png" caption="Resultados de la petición a la plataforma BNB Linked Data" %}
 
 Una vez tenemos el resultado, vamos a guardarlo como un fichero CSV que resulta mucho más sencillo de manejar. En primer lugar cargamos en un objeto JSON el resultado obtenido.
 
@@ -206,7 +208,8 @@ df = pd.read_csv('bnb_records.csv')
 df
 ```
 
-![Visualización del objeto DataFrame con los resultados](reutilizando-colecciones-digitales-glam-labs/df-bnb.png)
+<!--![Visualización del objeto DataFrame con los resultados](reutilizando-colecciones-digitales-glam-labs/df-bnb.png)-->
+{% include figure.html filename="df-bnb.png" caption="Visualización del objeto DataFrame con los resultados" %}
 
 A continuación, podemos analizar cuántos enlaces diferentes tenemos a GeoNames en el listado de resultados. Pandas permite acceder a las columnas del objeto DataFrame mediante el operador groupby. En este ejemplo agrupamos por la columna lugar de publicación (place) y en la segunda posición marcamos la columna que queremos utilizar para realizar la agregación, en este caso, la obra (resource). 
 
@@ -214,13 +217,15 @@ A continuación, podemos analizar cuántos enlaces diferentes tenemos a GeoNames
 places_by_number = df.groupby("place")["resource"].count()
 ```
 
-![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/geonames-links.png)
+<!--![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/geonames-links.png)-->
+{% include figure.html filename="geonames-links.png" caption="Enlaces a GeoNames en el listado de resultados" %}
 
 La plataforma BNB Linked Data proporciona los enlaces a GeoNames pero no contiene las coordenadas geográficas. Sin embargo, esta información puede ser recuperada de otros repositorio, como por ejemplo Wikidata. Las entidades en Wikidata disponen de un conjunto de propiedades que las describen y también incluyen un segundo apartado para identificadores externos. La siguiente imagen corresponde a la entidad [Londres en Wikidata](https://www.wikidata.org/wiki/Q84?uselang=es) y podemos observar el identificador de GeoNames.
 
 Hasta ahora disponemos de las URIs de cada elemento de GeoNames. Para poder enlazar a Wikidata necesitamos únicamente el identificador. El siguiente código extrae los identificadores haciendo tratamiento de cadenas.
 
-![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/entidad-londres.png)
+<!--![Enlaces a GeoNames en el listado de resultados](reutilizando-colecciones-digitales-glam-labs/entidad-londres.png)-->
+{% include figure.html filename="entidad-londres.png" caption="Enlaces a GeoNames en el listado de resultados" %}
 
 ```python
 places = pd.unique(df['place']).tolist()
@@ -231,7 +236,8 @@ for a in sorted(places):
 print(strplaces)
 ```
 
-![Extracción de identificadores de GeoNames](reutilizando-colecciones-digitales-glam-labs/ids-geonames.png)
+<!--![Extracción de identificadores de GeoNames](reutilizando-colecciones-digitales-glam-labs/ids-geonames.png) -->
+{% include figure.html filename="ids-geonames.png" caption="Extracción de identificadores de GeoNames" %}
 
 
 Una vez tenemos preparado nuestro listado de identificadores a GeoNames, vamos a recuperar las coordenadas geográficas de Wikidata. Para ello es necesario crear una consulta SPARQL. Vamos a utilizar la instrucción VALUES que permite especificar los valores para una determinada variable, en nuestro caso, los identificadores de GeoNames. La propiedad P1566 corresponde al identificador de GeoNames en Wikidata y la propiedad P625 corresponde a las propiedades geográficas.
@@ -286,7 +292,8 @@ for geo in geopoints['results']['bindings']:
 
 Y como resultado se obtiene un mapa con los lugares de publicación de las obras del autor seleccionado, en nuestro caso, William Shakespeare.
 
-![Lugares de publicación de las obras de William Shakespeare](reutilizando-colecciones-digitales-glam-labs/map.png)
+<!--![Lugares de publicación de las obras de William Shakespeare](reutilizando-colecciones-digitales-glam-labs/map.png)-->
+{% include figure.html filename="map.png" caption="Lugares de publicación de las obras de William Shakespeare" %}
 
 
 ## Ejemplo 2: Extracción y visualización de datos
@@ -391,11 +398,13 @@ Para ver el contenido del DataFrame debemos mostrar la variable df. También pod
 df  
 ```
 
-![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-overview.png)
+<!--![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-overview.png)-->
+{% include figure.html filename="df-overview.png" caption="El contenido del DataFrame" %}
 
 También podemos mostrar las columnas que tiene nuestro fichero CSV llamando al método **df.columns**. Para obtener el número de registros en nuestro DataFrame ejecutamos el comando **len(df)**.
 
-![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-columns.png)
+<!--![Overview of the metatada loaded with pandas](reutilizando-colecciones-digitales-glam-labs/df-columns.png)-->
+{% include figure.html filename="df-columns.png" caption="Mostrando las columnas del DataFrame" %}
 
 Pandas permite la manipulación y visualización del Dataframe de diferentes formas. Por ejemplo, podemos identificar la lista de materias (corresponde a la columna subjects) y ordenarla alfabéticamente.
 
@@ -408,8 +417,8 @@ for topic in sorted(topics, key=str.lower):
     print(topic)  
 ```
 
-![Listado de materias](reutilizando-colecciones-digitales-glam-labs/subjects.png)
-
+<!--![Listado de materias](reutilizando-colecciones-digitales-glam-labs/subjects.png)-->
+{% include figure.html filename="subjects.png" caption="Listado de materias ordenadas alfabéticamente" %}
 
 ## Conclusiones
 Las instituciones GLAM se están adaptando al nuevo entorno proporcionando colecciones aptas para el procesamiento por computador. Los labs en el seno de las instituciones GLAM desempeñan un papel fundamental en este sentido para promover las colecciones digitales y su reutilización de forma innovadora. Sin embargo, todavía es posible mejorar en lo que respecta a las licencias para proporcionar colecciones digitales libres de derechos como también a la publicación de ejemplos y prototipos de uso. En ese sentido, los Jupyter Notebooks pueden promover la creación de prototipos basados en métodos de investigación de Humanidades Digitales facilitando su reproducibilidad en entornos basados en la nube. 
