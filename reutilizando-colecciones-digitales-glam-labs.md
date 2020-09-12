@@ -27,11 +27,7 @@
  abstract: [DEJAR EN BLANCO]
  ---
  
- ## Contenidos
-{:.no_toc}
 
-* TOC
-{:toc}
 
 # Reutilizando colecciones digitales: GLAM Labs
 
